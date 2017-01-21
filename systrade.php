@@ -14,6 +14,8 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
+			// Get user
+			$user = $event['source']['text'];
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
@@ -36,6 +38,13 @@ if (!is_null($events['events'])) {
 			$result = curl_exec($ch);
 			curl_close($ch);
 			echo $result . "\r\n";
+			
+			$myfile = fopen("nm_list.txt", "w") or die("Unable to open file!");
+			$txt = $user+" : "+$replyToken+"\n";
+			fwrite($myfile, $txt);
+			$txt = "Minnie Mouse\n";
+			fwrite($myfile, $txt);
+			fclose($myfile);
 		}
 	}
 }
